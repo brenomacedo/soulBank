@@ -2,6 +2,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from '~/components/Header'
 import Tabs from '~/components/Tabs'
+import Menu from '~/components/Menu'
 import { View, Text, StyleSheet } from 'react-native'
 import { Container } from './Styles'
 
@@ -10,17 +11,20 @@ export default props => {
     <Container>
       <Header />
         <View style={styles.content}>
+
+          <Menu />
+
           <View style={styles.card}>
             <View style={styles.cardHeader}>
               <Icon name='attach-money' size={28} color='#666' />
               <Icon name='visibility-off' size={28} color='#666' />
             </View>
             <View style={styles.cardContent}>
-              <Text style={styles.title}>Saldo Disponíve:</Text>
-              <Text style={styles.description} >R$ 197.611,65</Text>
+              <Text style={styles.title}>Almas Disponíveis:</Text>
+              <Text style={styles.description} >5.688.197.611</Text>
             </View>
             <View style={styles.cardFooter} >
-              <Text style={styles.annotation} >Transferência de R$ 20.000,00 recebida de Breno Macêdo</Text>
+              <Text style={styles.annotation} >Transferência de 20.000 almas recebida de Breno Macêdo</Text>
             </View>
           </View>
         </View>
