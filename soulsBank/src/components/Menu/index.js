@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import QRCode from 'react-native-qrcode-svg'
 
-export default props => {
+export default ({ translateY }) => {
     return (
-        <ScrollView style={styles.container}>
+        <Animated.ScrollView style={[styles.container]}>
             <View style={styles.code}>
                 <QRCode value="https://github.com/brenomacedo" size={80} backgroundColor="#fff"
                 logoBackgroundColor="#a1a1a1" />
@@ -33,7 +33,7 @@ export default props => {
                 <Text style={styles.buttonText}>SAIR DO APP</Text>
             </TouchableOpacity>
 
-        </ScrollView>
+        </Animated.ScrollView>
     )
 }
 

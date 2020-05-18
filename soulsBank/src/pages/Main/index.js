@@ -3,18 +3,66 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from '~/components/Header'
 import Tabs from '~/components/Tabs'
 import Menu from '~/components/Menu'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated } from 'react-native'
+import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import { Container } from './Styles'
 
+
 export default props => {
+
+  let offset = 0
+  const onHandlerStateChange = event => {
+    if(event.nativeEvent.oldState === State.ACTIVE) {
+      let opened = false
+      const { translationY } = event.nativeEvent
+
+      offset += translationY
+
+      if(translationY >= 100) {
+        opened = true
+      }else{
+        translateY.setValue(offset)
+        translateY.setOffset(0)
+        offset = 0
+      }
+      
+      Animated.timing(translateY, {
+        toValue: opened ? 380 : 0,
+        duration: 200,
+        useNativeDriver: true
+      }).start(() => {
+        offset = opened ? 380 : 0
+        translateY.setOffset(offset)
+        translateY.setValue(0)
+      })
+    }
+  }
+
+ 
+  const translateY = new Animated.Value(0)
+  
+  const animatedEvent = new Animated.event([
+    {
+      nativeEvent: {
+        translationY: translateY
+      }
+    }
+  ], { useNativeDriver: true })
+
   return (
     <Container>
       <Header />
         <View style={styles.content}>
 
-          <Menu />
+          <Menu translateY={translateY} />
 
-          <View style={styles.card}>
+          <PanGestureHandler onGestureEvent={animatedEvent} onHandlerStateChange={onHandlerStateChange} >
+
+          <Animated.View style={[styles.card, { translateY: translateY.interpolate({
+            inputRange: [-350, 0, 380],
+            outputRange: [-50, 0, 380],
+            extrapolate: 'clamp'
+          }) }]}>
             <View style={styles.cardHeader}>
               <Icon name='attach-money' size={28} color='#666' />
               <Icon name='visibility-off' size={28} color='#666' />
@@ -26,7 +74,10 @@ export default props => {
             <View style={styles.cardFooter} >
               <Text style={styles.annotation} >Transferência de 20.000 almas recebida de Breno Macêdo</Text>
             </View>
-          </View>
+          </Animated.View>
+
+          </PanGestureHandler>
+
         </View>
       <Tabs />
     </Container>
