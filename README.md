@@ -6,3 +6,5 @@
 <p align="center">
 <img src="https://image.flaticon.com/icons/svg/2068/2068607.svg" />
 </p>
+
+<h3 align="center">O Ícone do app foi retirado do site flaticon.com</h3>
